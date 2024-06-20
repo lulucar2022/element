@@ -16,20 +16,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class Knife4jConfig {
-    /**
-     * 创建分组
-     * group中写入分组名称（商店管理）
-     * pathsToMatch中写入需要扫描的接口
-     * @return
-     */
-    @Bean
-    public GroupedOpenApi businessApi() {
-        return GroupedOpenApi.builder()
-                .group("商店管理")
-                .pathsToMatch("/BusinessController/**")
-                .build();
-    }
-
+    
     /**
      * docAPI
      * @return

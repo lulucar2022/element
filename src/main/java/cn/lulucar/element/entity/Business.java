@@ -16,6 +16,12 @@ import java.math.BigDecimal;
 @Schema(title = "商家管理" ,description = "商家信息")
 public class Business {
     /**
+     * 商家id
+     */
+    @Schema(description = "商家id",name = "businessId")
+    private Integer businessId;
+    
+    /**
      * 商家名称
      */
     @Schema(description = "商家名称",name = "businessName")
@@ -49,7 +55,7 @@ public class Business {
      * 起送费
      */
     @Schema(description = "起送费",name = "startPrice")
-    private Double starPrice;
+    private Double startPrice;
 
     /**
      * 配送费

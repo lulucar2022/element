@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public interface BusinessMapper {
-    @Select("select * from business where orderTypeId = #{id}")
+    @Select("select * from business where orderTypeId = #{orderTypeId}")
     List<Business> listByOrderTypeId(@Param("orderTypeId") Integer orderTypeId);
     
     @Select("select * from business where businessId = #{businessId}")

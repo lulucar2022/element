@@ -1,5 +1,6 @@
 package cn.lulucar.element.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  * @description
  */
 @Data
+@Schema(title = "送货地址", description = "用户的外卖地址")
 public class DeliveryAddress {
     private Integer daId; // 送货地址编号，主键，自增  
 

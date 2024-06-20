@@ -16,13 +16,19 @@ spring:
       read-only: false
 
 mybatis:
+  mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.lulucar.element.entity
   configuration:
     map-underscore-to-camel-case: true
+    # 启动懒加载
+    lazy-loading-enabled: true
+    
 server:
   # 服务端口
   port: 8888
-  
+  servlet:
+    context-path: /element
+    
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -51,4 +57,5 @@ knife4j:
     language: zh_cn
     enable-version: true
     enable-swagger-models: true
-    swagger-model-name: 用户模块
+    swagger-model-name: 数据模型
+    enable-request-cache: true
