@@ -68,7 +68,11 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
      */
     @Override
     public Integer updateDeliveryAddress(DeliveryAddress deliveryAddress) {
-        return null;
+        return deliveryAddressMapper.updateDeliveryAddress(deliveryAddress.getContactName(),
+                deliveryAddress.getContactSex(),
+                deliveryAddress.getContactTel(),
+                deliveryAddress.getAddress(),
+                deliveryAddress.getDaId());
     }
 
     /**
@@ -79,6 +83,6 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
      */
     @Override
     public Integer removeDeliveryAddress(Integer daId) {
-        return null;
+        return deliveryAddressMapper.removeDeliveryAddress(daId);
     }
 }

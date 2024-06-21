@@ -27,7 +27,7 @@ public interface DeliveryAddressMapper {
 
     @Update("update deliveryAddress set contactName=#{contactName},contactSex=#{contactSex},contactTel=#{contactTel},address=#{address} where daId=#{daId}")
     public Integer updateDeliveryAddress(@Param("contactName") String contactName,
-                                         @Param("contactSex") String contactSex,
+                                         @Param("contactSex") Integer contactSex,
                                          @Param("contactTel") String contactTel,
                                          @Param("address") String address,
                                          @Param("daId") Integer daId);

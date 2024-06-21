@@ -38,7 +38,7 @@ public class CartController {
     
     @Operation(summary = "添加菜品到购物车")
     @PostMapping("/saveCart")
-    public Integer saveCart(@RequestBody @Parameter(description = "需要userId，businessId，foodId（json格式）") JSONObject jsonObject){
+    public Integer saveCart(@RequestBody  JSONObject jsonObject){
         String userId;
         Integer businessId;
         Integer foodId;
@@ -78,7 +78,7 @@ public class CartController {
     
     @Operation(summary = "更新购物车")
     @PostMapping("/updateCart")
-    public Integer updateCart(@RequestBody @Parameter(description = "需要userId，businessId，foodId，num（json格式）") JSONObject jsonObject){
+    public Integer updateCart(@RequestBody  JSONObject jsonObject){
         String userId;
         Integer businessId;
         Integer foodId;
@@ -127,7 +127,8 @@ public class CartController {
     
     @Operation(summary = "删除购物车的菜品",description = "根据userId，businessId，foodId删除购物车中的某条记录，foodId可选，有就删除具体某条，没有就全删除")
     @PostMapping("/removeCart")
-    public Integer removeCart(@RequestBody @Parameter(description = "参数为json格式的userId，businessId，foodId。") JSONObject jsonObject) {
+    
+    public Integer removeCart(@RequestBody  JSONObject jsonObject) {
         
         String userId;
         Integer businessId;
