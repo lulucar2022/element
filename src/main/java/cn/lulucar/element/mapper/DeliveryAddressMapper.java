@@ -16,14 +16,14 @@ public interface DeliveryAddressMapper {
     public List<DeliveryAddress> listDeliveryAddressByUserId(String userId);
 
     @Select("select * from deliveryAddress where daId=#{daId}")
-    public DeliveryAddress getDeliveryAddressById(Integer daId);
+    public DeliveryAddress selectDeliveryAddressById(Integer daId);
 
     @Insert("insert into deliveryAddress values(null,#{contactName},#{contactSex},#{contactTel},#{address},#{userId})")
-    public Integer saveDeliveryAddress(@Param("contactName") String contactName, 
-                                       @Param("contactSex") Integer contactSex, 
-                                       @Param("contactTel") String contactTel, 
-                                       @Param("address") String address, 
-                                       @Param("userId") String userId);
+    public Integer insertDeliveryAddress(@Param("contactName") String contactName,
+                                         @Param("contactSex") Integer contactSex,
+                                         @Param("contactTel") String contactTel,
+                                         @Param("address") String address,
+                                         @Param("userId") String userId);
 
     @Update("update deliveryAddress set contactName=#{contactName},contactSex=#{contactSex},contactTel=#{contactTel},address=#{address} where daId=#{daId}")
     public Integer updateDeliveryAddress(@Param("contactName") String contactName,
@@ -33,6 +33,6 @@ public interface DeliveryAddressMapper {
                                          @Param("daId") Integer daId);
 
     @Delete("delete from deliveryAddress where daId=#{daId}")
-    public Integer removeDeliveryAddress(Integer daId);
+    public Integer deleteDeliveryAddress(Integer daId);
 
 }

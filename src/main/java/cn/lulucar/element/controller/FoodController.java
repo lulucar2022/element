@@ -2,6 +2,7 @@ package cn.lulucar.element.controller;
 
 import cn.lulucar.element.entity.Business;
 import cn.lulucar.element.entity.Food;
+import cn.lulucar.element.model.vo.Result;
 import cn.lulucar.element.service.FoodService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +28,10 @@ public class FoodController {
     
     @Operation(summary = "根据商家id查询食品列表")
     @GetMapping("/listFoodByBusinessId")
-    public List<Food> listFoodByBusinessId(Integer businessId){
-        return foodService.listFoodByBusinessId(businessId);
+    public Result<List<Food>> listFoodByBusinessId(Integer businessId){
+        List<Food> foods = foodService.listFoodByBusinessId(businessId);
+        return Result.<List<Food>>builder()
+                .data(foods)        
+                .build();
     }
 }

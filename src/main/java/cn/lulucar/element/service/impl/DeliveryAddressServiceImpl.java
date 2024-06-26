@@ -3,7 +3,6 @@ package cn.lulucar.element.service.impl;
 import cn.lulucar.element.entity.DeliveryAddress;
 import cn.lulucar.element.mapper.DeliveryAddressMapper;
 import cn.lulucar.element.service.DeliveryAddressService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +41,7 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
      */
     @Override
     public DeliveryAddress getDeliveryAddressById(Integer daId) {
-        return deliveryAddressMapper.getDeliveryAddressById(daId);
+        return deliveryAddressMapper.selectDeliveryAddressById(daId);
     }
 
     /**
@@ -53,7 +52,7 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
      */
     @Override
     public Integer saveDeliveryAddress(DeliveryAddress deliveryAddress) {
-        return deliveryAddressMapper.saveDeliveryAddress(deliveryAddress.getContactName(), 
+        return deliveryAddressMapper.insertDeliveryAddress(deliveryAddress.getContactName(), 
                 deliveryAddress.getContactSex(),
                 deliveryAddress.getContactTel(),
                 deliveryAddress.getAddress(),
@@ -83,6 +82,6 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
      */
     @Override
     public Integer removeDeliveryAddress(Integer daId) {
-        return deliveryAddressMapper.removeDeliveryAddress(daId);
+        return deliveryAddressMapper.deleteDeliveryAddress(daId);
     }
 }

@@ -8,6 +8,7 @@ import cn.lulucar.element.mapper.CartMapper;
 import cn.lulucar.element.mapper.FoodMapper;
 import cn.lulucar.element.model.dto.CartDTO;
 import cn.lulucar.element.service.CartService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
  * @date 2024/6/19 19:58
  * @description
  */
+@Slf4j
 @Service
 public class CartServiceImpl implements CartService {
     private final CartMapper cartMapper;
@@ -61,7 +63,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int saveCart(String userId, Integer businessId, Integer foodId) {
-        return cartMapper.saveCart(foodId, businessId, userId);
+        return cartMapper.insertCart(foodId, businessId, userId);
     }
 
     @Override
@@ -71,6 +73,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int removeCart(String userId, Integer businessId, Integer foodId) {
-        return cartMapper.removeCart(foodId, businessId, userId);
+        return cartMapper.deleteCart(foodId, businessId, userId);
     }
 }

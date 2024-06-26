@@ -3,7 +3,6 @@ package cn.lulucar.element.service.impl;
 import cn.lulucar.element.entity.User;
 import cn.lulucar.element.mapper.UserMapper;
 import cn.lulucar.element.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User login(String userId, String password) {
-        return userMapper.getUserByIdByPass(userId,password);
+        return userMapper.selectUserByIdByPass(userId,password);
     }
 
     /**
@@ -38,7 +37,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int checkUserId(String userId) {
-        return userMapper.getUserById(userId);
+        return userMapper.selectUserById(userId);
     }
 
     /**
@@ -51,6 +50,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int saveUser(String userId,String password,String userName,Integer userSex) {
-        return userMapper.saveUser(userId,password,userName,userSex);
+        return userMapper.insertUser(userId,password,userName,userSex);
     }
 }

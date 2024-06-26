@@ -11,22 +11,22 @@
     </resultMap>
     
     
-    <select id="listCart" parameterType="cart" resultMap="cartResultMap">
+    <select id="listCart" resultMap="cartResultMap">
         SELECT * FROM cart
-        <where>
-            userId = #{userId}
-            <if test="businessId != null || businessId != '' ">
-                and businessId = #{businessId}
-            </if>
-        </where>
+        where userId = #{userId}
+        
+        <if test="businessId != null">
+            and businessId = #{businessId}
+        </if>
+
         ORDER BY cartId DESC
     </select>
     
-    <delete id="removeCart" parameterType="cart">
+    <delete id="deleteCart" >
         DELETE FROM cart
         WHERE
             userId = #{userId} AND businessId = #{businessId}
-            <if test="foodId != null || foodId != ''">
+            <if test="foodId != null">
                 AND foodId = #{foodId}
             </if>
        

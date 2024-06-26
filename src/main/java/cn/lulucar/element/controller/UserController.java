@@ -2,6 +2,7 @@ package cn.lulucar.element.controller;
 
 import cn.lulucar.element.entity.User;
 import cn.lulucar.element.model.dto.UserDTO;
+import cn.lulucar.element.model.vo.Result;
 import cn.lulucar.element.service.UserService;
 import cn.lulucar.element.util.CollectionUtils;
 import com.alibaba.fastjson.JSONObject;
@@ -29,7 +30,7 @@ public class UserController {
     
     @Operation(summary = "用户登录")
     @PostMapping("/getUserByIdByPass")
-    public User login(@RequestBody JSONObject jsonObject) {
+    public Result<User> login(@RequestBody JSONObject jsonObject) {
         
         // 用户名和密码不能为空
         if (ObjectUtils.isEmpty(jsonObject.get("userId")) || ObjectUtils.isEmpty(jsonObject.get("password"))) {
@@ -37,19 +38,25 @@ public class UserController {
         }
         String userId = (String) jsonObject.get("userId");
         String password = (String) jsonObject.get("password");
-        return userService.login(userId,password);
+        User user = userService.login(userId, password);
+        
+        return Result.<User>builder()
+                .data(user)
+                .build();
     }
     
     @Operation(summary = "根据用户ID获取用户信息")
     @GetMapping("/getUserById")
-    public Integer checkUserId(@RequestParam("userId") String userId) {
-        log.info("userId:{}",userId);
-        return userService.checkUserId(userId);
+    public Result<Integer> checkUserId(@RequestParam("userId") String userId) {
+        Integer checked = userService.checkUserId(userId);
+        return Result.<Integer>builder()
+                .data(checked)
+                .build();
     }
     
     @Operation(summary = "新增用户")
     @PostMapping("/saveUser")
-    public Integer saveUser(@RequestBody(required = true) UserDTO userDTO) {
+    public Result<Integer> saveUser(@RequestBody(required = true) UserDTO userDTO) {
         String userId = null;
         String password = null;
         String userName = null;
@@ -72,9 +79,12 @@ public class UserController {
         }
         
         if (userId == null || password == null || userName == null || userSex == null) {
-            return -1;
+            throw new IllegalArgumentException("用户ID、密码、用户名和性别不能为空");
         }
-        return userService.saveUser(userId, password, userName, userSex);
+        Integer saved = userService.saveUser(userId, password, userName, userSex);
+        return Result.<Integer>builder()
+                .data(saved)
+                .build();
 
 
     }

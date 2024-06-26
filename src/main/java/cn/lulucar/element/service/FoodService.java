@@ -15,4 +15,6 @@ import java.util.List;
 @Service
 public interface FoodService {
     List<Food> listFoodByBusinessId(Integer businessId);
+    
+    Food getFoodById(Integer foodId);
 }

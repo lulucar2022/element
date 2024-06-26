@@ -2,6 +2,7 @@ package cn.lulucar.element.controller;
 
 import cn.lulucar.element.entity.Cart;
 import cn.lulucar.element.model.dto.CartDTO;
+import cn.lulucar.element.model.vo.Result;
 import cn.lulucar.element.service.CartService;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,14 +32,17 @@ public class CartController {
     
     @Operation(summary = "根据用户id和商家id获取购物车")
     @GetMapping("/listCart")
-    public List<CartDTO> listCart(@RequestParam("userId") @NotNull String userId,
-                                  @RequestParam("businessId")   Integer businessId){
-        return cartService.listCart(userId, businessId);
+    public Result<List<CartDTO> > listCart(@RequestParam("userId") @NotNull String userId,
+                                           @RequestParam(name = "businessId", required = false)   Integer businessId){
+        List<CartDTO> cartDTOS = cartService.listCart(userId, businessId);
+        return Result.<List<CartDTO>>builder()
+                .data(cartDTOS)
+                .build();
     }
     
     @Operation(summary = "添加菜品到购物车")
     @PostMapping("/saveCart")
-    public Integer saveCart(@RequestBody  JSONObject jsonObject){
+    public Result<Integer> saveCart(@RequestBody  JSONObject jsonObject){
         String userId;
         Integer businessId;
         Integer foodId;
@@ -73,12 +77,15 @@ public class CartController {
         }
         
         // 执行添加操作
-        return cartService.saveCart(userId, businessId, foodId);
+        Integer saved = cartService.saveCart(userId, businessId, foodId);
+        return Result.<Integer>builder()
+                .data(saved)
+                .build();
     }
     
     @Operation(summary = "更新购物车")
     @PostMapping("/updateCart")
-    public Integer updateCart(@RequestBody  JSONObject jsonObject){
+    public Result<Integer> updateCart(@RequestBody  JSONObject jsonObject){
         String userId;
         Integer businessId;
         Integer foodId;
@@ -122,13 +129,16 @@ public class CartController {
         }
         
         // 执行更新操作
-        return cartService.updateCart(userId,businessId,foodId,quantity);
+        Integer updated = cartService.updateCart(userId, businessId, foodId, quantity);
+        return Result.<Integer>builder()
+                .data(updated)
+                .build();
     }
     
     @Operation(summary = "删除购物车的菜品",description = "根据userId，businessId，foodId删除购物车中的某条记录，foodId可选，有就删除具体某条，没有就全删除")
     @PostMapping("/removeCart")
     
-    public Integer removeCart(@RequestBody  JSONObject jsonObject) {
+    public Result<Integer> removeCart(@RequestBody  JSONObject jsonObject) {
         
         String userId;
         Integer businessId;
@@ -164,6 +174,9 @@ public class CartController {
         
         
         // 执行删除操作
-        return cartService.removeCart(userId,businessId,foodId);
+        int removed = cartService.removeCart(userId, businessId, foodId);
+        return Result.<Integer>builder()
+                .data(removed)
+                .build();
     }
 }

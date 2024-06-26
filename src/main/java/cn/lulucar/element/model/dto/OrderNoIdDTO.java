@@ -1,31 +1,31 @@
-package cn.lulucar.element.entity;
+package cn.lulucar.element.model.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
  * @author wenxiaolan
- * @ClassName Orders
- * @date 2024/6/17 14:36
+ * @ClassName OrderNoIdDTO
+ * @date 2024/6/23 9:23
  * @description
  */
 @Data
-@Schema(description = "订单信息",title = "订单管理")
-public class Orders {
-    private Integer orderId; // 订单编号，主键，自增  
-
+@Validated
+public class OrderNoIdDTO {
+    @NotNull
     private String userId; // 用户编号  
-
+    @NotNull
     private Integer businessId; // 商家编号  
-
-    private LocalDateTime orderDate; // 订购日期（通常建议使用日期类型如java.time.LocalDate）  
-
+    
+    @NotNull
     private BigDecimal orderTotal; // 订单总价  
-
+    @NotNull
     private Integer daId; // 送货地址编号  
-
+    @NotNull
     private Integer orderState; // 订单状态（0：未支付； 1：已支付）  
 }

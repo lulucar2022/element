@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.lulucar.element.mapper.OrderDetailMapper">
+    <resultMap id="orderDetailResultMap" type="cn.lulucar.element.entity.OrderDetail">
+        <id column="odId" property="odId"/>
+        <result column="orderId" property="orderId"/>
+        <result column="foodId" property="foodId"/>
+        <result column="quantity" property="quantity"/>
+    </resultMap>
+    
+    <insert id="insertOrderDetail" parameterType="list">
+        insert into orderDetailet(orderId,foodId,quantity) values
+        <foreach collection="orderDetailList" item="item" separator=",">
+            (#{item.orderId},#{item.foodId},#{item.quantity})
+        </foreach>
+    </insert>
+    
+    <select id="listOrderDetailByOrderId" resultType="cn.lulucar.element.entity.OrderDetail">
+        SELECT odId,orderId,foodId,quantity FROM orderdetailet WHERE orderId = #{orderId}
+    </select>
+</mapper>

@@ -2,6 +2,7 @@ package cn.lulucar.element.mapper;
 
 import cn.lulucar.element.entity.User;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -12,9 +13,9 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface UserMapper {
     @Select("select * from user where userId=#{userId} and password=#{password}")
-    public User getUserByIdByPass(String userId,String password);
+    public User selectUserByIdByPass(@Param("userId") String userId, @Param("password") String password);
     @Select("select count(*) from user where userId=#{userId}")
-    public int getUserById(String userId);
+    public int selectUserById(String userId);
     @Insert("insert into user values(#{userId},#{password},#{userName},#{userSex},null,1)")
-    public int saveUser(String userId,String password,String userName,Integer userSex);
+    public int insertUser(String userId, String password, String userName, Integer userSex);
 }
