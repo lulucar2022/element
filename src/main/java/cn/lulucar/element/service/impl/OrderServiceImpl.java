@@ -1,12 +1,11 @@
 package cn.lulucar.element.service.impl;
 
-import cn.lulucar.element.entity.Business;
-import cn.lulucar.element.entity.Cart;
-import cn.lulucar.element.entity.Order;
-import cn.lulucar.element.entity.OrderDetail;
+import cn.lulucar.element.entity.*;
 import cn.lulucar.element.mapper.*;
 import cn.lulucar.element.model.dto.Order4FoodDTO;
 import cn.lulucar.element.model.dto.OrderDTO;
+import cn.lulucar.element.model.dto.OrderDetailDTO;
+import cn.lulucar.element.service.FoodService;
 import cn.lulucar.element.service.OrderDetailService;
 import cn.lulucar.element.service.OrderService;
 import org.springframework.beans.BeanUtils;
@@ -32,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDetailMapper orderDetailMapper;
     private final OrderDetailService orderDetailService;
 
-    public OrderServiceImpl(CartMapper cartMapper, BusinessMapper businessMapper, OrderMapper orderMapper, OrderDetailMapper orderDetailMapper, OrderDetailService orderDetailService) {
+    public OrderServiceImpl(CartMapper cartMapper, BusinessMapper businessMapper, OrderMapper orderMapper, OrderDetailMapper orderDetailMapper, OrderDetailService orderDetailService, FoodService foodService) {
         this.cartMapper = cartMapper;
         this.businessMapper = businessMapper;
         this.orderMapper = orderMapper;
@@ -80,28 +79,23 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 根据orderId获取订单
      * 1. 包括 订单详细
-     * 1.1 订单详细列表包含了订单中的菜品
+     * 1.1 订单详细包含了订单中的菜品id
      * 2. 包括 商家的信息
      * @param orderId
      * @return
      */
     @Override
     public OrderDTO getOrdersById(Integer orderId) {
+        // 1.获取订单
         Order order = orderMapper.selectOrderById(orderId);
-        List<Cart> cartList = cartMapper.listCart(order.getUserId(), order.getBusinessId());
-        List<OrderDetail> orderDetailList = cartList.stream().map(cart -> {
-            OrderDetail od = new OrderDetail();
-            od.setFoodId(cart.getFoodId());
-            od.setQuantity(cart.getQuantity());
-            od.setOrderId(orderId);
-            return od;
-        }).collect(Collectors.toList());
+        // 2.拿到属于orderId的订单详细
+        List<OrderDetailDTO> orderDetailDTOS = orderDetailService.listOrderDetail(orderId);
+
         Business business = businessMapper.selectByBusinessId(order.getBusinessId());
-        
         OrderDTO orderDTO = new OrderDTO();
         BeanUtils.copyProperties(order,orderDTO);
         orderDTO.setBusiness(business);
-        orderDTO.setOrderDetail(orderDetailList);
+        orderDTO.setOrderDetails(orderDetailDTOS);
         return orderDTO;
     }
 
@@ -123,7 +117,7 @@ public class OrderServiceImpl implements OrderService {
             Order4FoodDTO orderDTO = new Order4FoodDTO();
             BeanUtils.copyProperties(order,orderDTO);
             orderDTO.setBusiness(businessMapper.selectByBusinessId(order.getBusinessId()));
-            orderDTO.setOrderDetails(orderDetailService.getOrderDetailList(order.getOrderId()));
+            orderDTO.setOrderDetails(orderDetailService.listOrderDetail(order.getOrderId()));
             return orderDTO;
         }).collect(Collectors.toList());
         return orderDTOList;

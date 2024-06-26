@@ -22,7 +22,7 @@ public class Result<T> {
     
     // 构造函数
     public Result(Builder<T> builder) {
-        this.code = builder.code != -1 ? builder.code : DEFAULT_CODE;
+        this.code = builder.code != null? builder.code : DEFAULT_CODE;
         this.message = builder.message != null? builder.message : DEFAULT_MESSAGE;
         this.data = builder.data;   
     }

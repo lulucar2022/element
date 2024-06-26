@@ -13,5 +13,5 @@ import java.util.List;
  */
 @Service
 public interface OrderDetailService {
-    List<OrderDetailDTO> getOrderDetailList(Integer orderId);
+    List<OrderDetailDTO> listOrderDetail(Integer orderId);
 }

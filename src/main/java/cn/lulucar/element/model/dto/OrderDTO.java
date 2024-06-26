@@ -37,6 +37,6 @@ public class OrderDTO {
     @NotNull
     private Integer orderState; // 订单状态（0：未支付； 1：已支付）  
     
-    private List<OrderDetail> orderDetail; // 订单详情
+    private List<OrderDetailDTO> orderDetails; // 订单详情
     private Business business; // 商家信息
 }

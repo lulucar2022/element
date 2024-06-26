@@ -31,7 +31,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @Override
-    public List<OrderDetailDTO> getOrderDetailList(Integer orderId) {
+    public List<OrderDetailDTO> listOrderDetail(Integer orderId) {
         List<OrderDetail> orderDetailList = orderDetailMapper.listOrderDetailByOrderId(orderId);
         return orderDetailList.stream().map(orderDetail -> {
             OrderDetailDTO detailDTO = new OrderDetailDTO();
@@ -41,4 +41,5 @@ public class OrderDetailServiceImpl implements OrderDetailService {
             return detailDTO;
         }).collect(Collectors.toList());
     }
+ 
 }
