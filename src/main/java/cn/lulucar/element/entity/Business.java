@@ -3,6 +3,8 @@ package cn.lulucar.element.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 
 import java.math.BigDecimal;
 
@@ -55,6 +57,7 @@ public class Business {
      * 起送费
      */
     @Schema(description = "起送费",name = "startPrice")
+    
     private Double startPrice;
 
     /**
