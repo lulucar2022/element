@@ -11,3 +11,4 @@ https://github.com/lulucar2022/element-vue-frontend
 - 用户登录注册
 - 订单管理
 - 收货地址管理
+- 购物车管理
